@@ -6,13 +6,6 @@ import SignIn from './components/SignIn'
 import { getAuth } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
 
-const Container = styled.div`
-  display: grid;
-  grid-template-rows: auto 1fr;
-  grid-template-columns: 260px 1fr;
-  min-height: 100vh;
-`
-
 const App = () => {
   const auth = getAuth()
   const [user] = useAuthState(auth)
@@ -29,5 +22,12 @@ const App = () => {
     <SignIn />
   )
 }
+
+const Container = styled.div`
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+`
 
 export default App

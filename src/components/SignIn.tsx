@@ -1,12 +1,48 @@
 import styled from 'styled-components'
 import GoogleLogo from '../images/google-logo.svg'
 import * as Styled from './styles'
+import {
+  getFirestore,
+  setDoc,
+  doc,
+  collection
+} from 'firebase/firestore'
 
 import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup
 } from 'firebase/auth'
+
+const SignIn = () => {
+  const handleSignIn = () => {
+    const auth = getAuth()
+    const provider = new GoogleAuthProvider()
+    signInWithPopup(auth, provider).then(({ user }) => {
+      const {
+        uid, displayName, email, photoURL
+      } = user
+      const db = getFirestore()
+      const users = collection(db, 'users')
+      setDoc(doc(users, uid), {
+        displayName,
+        email,
+        photoURL,
+        uid
+      })
+    })
+  }
+
+  return (
+    <SignInContainer>
+      <Title>Sign in with: </Title>
+      <Logo src={GoogleLogo}/>
+      <SignInButton onClick={handleSignIn}>
+        Sign in!
+      </SignInButton>
+    </SignInContainer>
+  )
+}
 
 const SignInContainer = styled.div`
   position: fixed;
@@ -34,23 +70,5 @@ const SignInButton = styled(Styled.Button)`
   margin: 0 auto 1.5em auto;
   font-size: 1.5em;
 `
-
-const SignIn = () => {
-  const handleSignIn = () => {
-    const auth = getAuth()
-    const provider = new GoogleAuthProvider()
-    signInWithPopup(auth, provider)
-  }
-
-  return (
-    <SignInContainer>
-      <Title>Sign in with: </Title>
-      <Logo src={GoogleLogo}/>
-      <SignInButton onClick={handleSignIn}>
-        Sign in!
-      </SignInButton>
-    </SignInContainer>
-  )
-}
 
 export default SignIn

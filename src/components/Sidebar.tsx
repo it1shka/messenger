@@ -1,5 +1,15 @@
 import styled from 'styled-components'
 import SignOut from './SignOut'
+import Search from './Search'
+
+const Sidebar = () => {
+  return (
+    <SidebarContainer>
+      <Search />
+      <SignOut />
+    </SidebarContainer>
+  )
+}
 
 const SidebarContainer = styled.div`
   grid-row: 2 / 3;
@@ -10,14 +20,5 @@ const SidebarContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
 `
-
-const Sidebar = () => {
-  return (
-    <SidebarContainer>
-
-      <SignOut />
-    </SidebarContainer>
-  )
-}
 
 export default Sidebar
