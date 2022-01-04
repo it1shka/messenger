@@ -4,11 +4,24 @@ import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 
 const Search = () => {
+  type Timer = ReturnType<typeof setTimeout>
+  const notimer = 0 as any as Timer
+
+  const [input, setInput] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
+  const [updateTimeout, setUpdateTimeout] = useState<Timer>(notimer)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
-    setSearchQuery(value)
+
+    if(updateTimeout) {
+      clearTimeout(updateTimeout)
+    }
+
+    setInput(value)
+    setUpdateTimeout(setTimeout(() => {
+      setSearchQuery(input)
+    }, 750))
   }
 
   return (
