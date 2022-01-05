@@ -19,18 +19,21 @@ const Search = () => {
     dispatch(Action.setInput(value))
   }
 
-  const handleSearchClick = () => {
+  const handleSearch = () => {
     dispatch(Action.setSearchQuery())
   }
 
   return (
-    <SearchContainer>
+    <SearchContainer onSubmit={event => {
+      event.preventDefault()
+      handleSearch()
+    }}>
       <SearchInput 
         value={input}
         onChange={handleInputChange}
         placeholder='Search by email...'/>
       <Styled.Button 
-        onClick={handleSearchClick} 
+        onClick={handleSearch} 
         style={{fontSize: '0.75em'}}>
         Search
       </Styled.Button>
@@ -39,7 +42,7 @@ const Search = () => {
   )
 }
 
-const SearchContainer = styled.div`
+const SearchContainer = styled.form`
   position: relative;
   padding: 0.5em 0.75em 1em 0.75em;
   box-shadow: var(--lightgrey) 0px 2px 1px;

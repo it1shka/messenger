@@ -29,6 +29,7 @@ const UserContainer = styled.li`
   &:hover {
     background-color: var(--lightgrey);
     color: black;
+    cursor: pointer;
   }
 `
 
