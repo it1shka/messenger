@@ -40,6 +40,15 @@ const SearchResult = () => {
   const [result] = useCollectionDataOnce($query)
 
   if(!searchQuery || !result) return <></>
+  
+  if(result.length == 0) {
+    return (
+      <ResultContainer>
+        <SearchInfo>Nothing found</SearchInfo>
+      </ResultContainer>
+    )
+  }
+
   return (
     <ResultContainer>
       {result.map(( userData, i) => {
@@ -52,6 +61,19 @@ const SearchResult = () => {
     </ResultContainer>
   )
 }
+
+const SearchInfo = styled.h2`
+  color: grey;
+  font-size: 1em;
+  padding: 0.5em;
+  border-top: 1px solid var(--lightgrey);
+  transition: 0.2s all 0s;
+  
+  &:hover {
+    background-color: var(--lightgrey);
+    color: black;
+  }
+`
 
 const ResultContainer = styled.ul`
   position: absolute;

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { signOut, getAuth } from 'firebase/auth'
+import * as Styled from './styles'
 
 const SignOut = () => {
   const handleSignOut = () => {
@@ -14,16 +15,11 @@ const SignOut = () => {
   )
 }
 
-const SignOutButton = styled.button`
+const SignOutButton = styled(Styled.Button)`
   margin-top: auto;
-  padding: 0.5em 0;
-  font-size: 1em;
-  border: none;
-  background-color: #b52d00;
-  color: white;
-
+  border-radius: 0;
   &:hover {
-    background-color: #781e00;
+    border-radius: 0;
   }
 `
 
