@@ -1,20 +1,26 @@
 import styled from 'styled-components'
 import SearchResult from './SearchResult'
-import { useState } from 'react'
 import type { ChangeEvent } from 'react'
 import * as Styled from './styles'
+import {
+  useDispatch, useSelector
+} from 'react-redux'
+import type {
+  RootState, AppDispatch
+} from '../store'
+import * as Action from '../store/actions/search.actions'
 
 const Search = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [input, setInput] = useState('')
+  const dispatch = useDispatch<AppDispatch>()
+  const input = useSelector((state: RootState) => state.search.input)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
-    setInput(value)
+    dispatch(Action.setInput(value))
   }
 
   const handleSearchClick = () => {
-    setSearchQuery(input)
+    dispatch(Action.setSearchQuery())
   }
 
   return (
@@ -28,9 +34,7 @@ const Search = () => {
         style={{fontSize: '0.75em'}}>
         Search
       </Styled.Button>
-      <SearchResult 
-        searchQuery={searchQuery}
-      />
+      <SearchResult />
     </SearchContainer>
   )
 }

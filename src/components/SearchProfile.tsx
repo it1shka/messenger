@@ -27,8 +27,8 @@ const UserContainer = styled.li`
   transition: 0.2s all 0s;
 
   &:hover {
-    background-color: grey;
-    color: white;
+    background-color: var(--lightgrey);
+    color: black;
   }
 `
 

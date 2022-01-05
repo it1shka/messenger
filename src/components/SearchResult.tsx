@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import type { FC } from 'react'
 import {
   getFirestore,
   query,
@@ -13,6 +12,8 @@ import { useCollectionDataOnce } from 'react-firebase-hooks/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import SearchProfile from "./SearchProfile"
 import { User } from "../types"
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
 
 function successor(str: string) {
   const beginning = str.slice(0, -1)
@@ -21,9 +22,10 @@ function successor(str: string) {
   return beginning + last 
 }
 
-const SearchResult: FC<{searchQuery: string}> = ({
-  searchQuery,
-}) => {
+const SearchResult = () => {
+  const searchQuery = useSelector((state: RootState) => {
+    return state.search.searchQuery
+  })
   const auth = getAuth()
   const [currentUser] = useAuthState(auth)
   const db = getFirestore()

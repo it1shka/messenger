@@ -1,8 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { createGlobalStyle } from 'styled-components'
 import './firebase.config'
+import { Provider } from 'react-redux'
+import store from './store'
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -23,9 +24,9 @@ const GlobalStyles = createGlobalStyle`
 `
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
     <GlobalStyles />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
