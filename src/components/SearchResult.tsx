@@ -41,7 +41,7 @@ const SearchResult = () => {
 
   if(!searchQuery || !result) return <></>
   
-  if(result.length == 0) {
+  if(result.length === 0) {
     return (
       <ResultContainer>
         <SearchInfo>Nothing found</SearchInfo>
@@ -53,7 +53,13 @@ const SearchResult = () => {
     <ResultContainer>
       {result.map(( userData, i) => {
         const user = userData as unknown as User
-        if(user.uid === currentUser?.uid) return ''
+        if(user.uid === currentUser?.uid) {
+          return (
+            <li key={i}>
+              <SearchInfo>Yourself</SearchInfo>
+            </li>
+          )
+        }
         return (
           <SearchProfile key={i} user={user} />
         )
