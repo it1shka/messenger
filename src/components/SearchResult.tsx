@@ -86,6 +86,7 @@ const ResultContainer = styled.ul`
   top: 100%;
   left: 0;
   right: 0;
+  z-index: 10;
 
   background-color: white;
   box-shadow: var(--lightgrey) 0px 2px 1px;

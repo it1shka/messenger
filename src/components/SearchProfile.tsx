@@ -1,13 +1,23 @@
 import type { FC } from 'react'
 import styled from 'styled-components'
 import { User } from '../types'
+import { useDispatch } from 'react-redux'
+import { clearSearch } from '../store/actions/search.actions'
+import { AppDispatch } from '../store'
+import { addChannel } from '../store/actions/channels.actions'
 
 const SearchProfile: FC<{user: User}> = ({
   user
 }) => {
-  
+  const dispatch = useDispatch<AppDispatch>()
+
+  const handleAddUser = () => {
+    dispatch(clearSearch())
+    dispatch(addChannel(user.uid))
+  }
+
   return (
-    <UserContainer>
+    <UserContainer onClick={handleAddUser}>
       <div>
         <h4>{user.displayName}</h4>
         <small>{user.email}</small>

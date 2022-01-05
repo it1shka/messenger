@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 import SignOut from './SignOut'
 import Search from './Search'
+import Channels from './Channels'
 
 const Sidebar = () => {
   return (
     <SidebarContainer>
       <Search />
+      <Channels />
       <SignOut />
     </SidebarContainer>
   )
