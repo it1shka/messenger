@@ -9,7 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 const App = () => {
   const auth = getAuth()
   const [user] = useAuthState(auth)
-  console.log(user)
+  
   return user 
   ? (
     <Container>

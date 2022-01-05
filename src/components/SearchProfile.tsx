@@ -5,7 +5,7 @@ import { User } from '../types'
 const SearchProfile: FC<{user: User}> = ({
   user
 }) => {
-  console.log(user)
+  
   return (
     <UserContainer>
       <div>
