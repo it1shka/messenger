@@ -4,16 +4,25 @@ import { User } from '../types'
 import { useDispatch } from 'react-redux'
 import { clearSearch } from '../store/actions/search.actions'
 import { AppDispatch } from '../store'
-import { addChannel } from '../store/actions/channels.actions'
+import { arrayUnion, doc, getFirestore, setDoc } from 'firebase/firestore'
+import { getAuth } from 'firebase/auth'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 const SearchProfile: FC<{user: User}> = ({
   user
 }) => {
+
   const dispatch = useDispatch<AppDispatch>()
+  const auth = getAuth()
+  const [currentUser] = useAuthState(auth)
+  const db = getFirestore()
+  const engaged = doc(db, 'engaged', currentUser!.uid)
 
   const handleAddUser = () => {
     dispatch(clearSearch())
-    dispatch(addChannel(user.uid))
+    setDoc(engaged, {
+      channels: arrayUnion(user.uid)
+    })
   }
 
   return (

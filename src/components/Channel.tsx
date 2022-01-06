@@ -1,22 +1,26 @@
 import styled from "styled-components"
-import { getFirestore, doc } from 'firebase/firestore'
+import { getFirestore, doc, setDoc, arrayRemove } from 'firebase/firestore'
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore'
 import type { User } from "../types"
+import { getAuth } from "firebase/auth"
+import { useAuthState } from "react-firebase-hooks/auth"
 
-import { removeChannel } from "../store/actions/channels.actions"
-import { useDispatch } from "react-redux"
-import { AppDispatch } from "../store"
 
 const Channel = ({uid}: {uid: string}) => {
-  const dispatch = useDispatch<AppDispatch>()
+  const auth = getAuth()
+  const [currentUser] = useAuthState(auth)
 
   const db = getFirestore()
   const user = doc(db, 'users', uid)
   const data = useDocumentDataOnce(user)
   const userData = data[0] as unknown as User
 
+  const channelsRef = doc(db, 'engaged', currentUser!.uid)
+
   const handleRemoveChannel = () => {
-    dispatch(removeChannel(uid))
+    setDoc(channelsRef, {
+      channels: arrayRemove(uid)
+    })
   }
 
   return (
