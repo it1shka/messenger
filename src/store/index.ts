@@ -1,18 +1,16 @@
 import { 
   createStore, 
   combineReducers,
-  applyMiddleware
 } from 'redux'
 import searchReducer from './reducers/search.reducer'
-import channelsReducer from './reducers/channels.reducer'
-import channelsSaver from './middleware/saver'
+import activeReducer from './reducers/active.reducer'
 
 const rootReducer = combineReducers({
   search: searchReducer,
-  channels: channelsReducer
+  active: activeReducer
 })
 
-const store = createStore(rootReducer, applyMiddleware(channelsSaver))
+const store = createStore(rootReducer)
 export default store
 
 export type AppDispatch = typeof store.dispatch

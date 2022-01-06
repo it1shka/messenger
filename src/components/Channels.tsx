@@ -5,6 +5,7 @@ import { useDocumentData } from 'react-firebase-hooks/firestore'
 import Channel from './Channel'
 
 const Channels = () => {
+  
   const auth = getAuth()
   const db = getFirestore()
   const [user] = useAuthState(auth)
@@ -15,7 +16,6 @@ const Channels = () => {
     channels = channelsData.channels
   }
 
-  console.log(channels)
   return (
     <div>
       {channels.map((channel, i) => {

@@ -1,12 +1,20 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { getFirestore, doc, setDoc, arrayRemove } from 'firebase/firestore'
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore'
 import type { User } from "../types"
 import { getAuth } from "firebase/auth"
 import { useAuthState } from "react-firebase-hooks/auth"
+import { MouseEvent } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "../store"
+import { setActive } from "../store/actions/active.actions"
 
 
 const Channel = ({uid}: {uid: string}) => {
+  const dispatch = useDispatch<AppDispatch>()
+  const active = useSelector((state: RootState) => {
+    return state.active.active
+  })
   const auth = getAuth()
   const [currentUser] = useAuthState(auth)
 
@@ -16,15 +24,23 @@ const Channel = ({uid}: {uid: string}) => {
   const userData = data[0] as unknown as User
 
   const channelsRef = doc(db, 'engaged', currentUser!.uid)
+  const isActive = active === uid
 
-  const handleRemoveChannel = () => {
+  const handleChoose = () => {
+    dispatch(setActive(uid))
+  }
+
+  const handleRemoveChannel = (
+    event: MouseEvent<HTMLButtonElement>
+  ) => {
+    event.stopPropagation()
     setDoc(channelsRef, {
       channels: arrayRemove(uid)
     }, { merge: true })
   }
 
   return (
-    <ChannelContainer>
+    <ChannelContainer isActive={isActive} onClick={handleChoose}>
       <ProfilePicture src={userData?.photoURL}/>
       <Name>{userData?.displayName}</Name>
       <CloseButton onClick={handleRemoveChannel}>
@@ -34,7 +50,7 @@ const Channel = ({uid}: {uid: string}) => {
   )
 }
 
-const ChannelContainer = styled.div`
+const ChannelContainer = styled.div<{isActive?: boolean}>`
   position:relative;
   display: flex;
   padding: 0.5em 0.75em;
@@ -51,6 +67,11 @@ const ChannelContainer = styled.div`
       display: block;
     }
   }
+
+  ${({isActive}) => isActive && css`
+    background-color: var(--lightgrey);
+    color: black;
+  `}
 `
 
 const ProfilePicture = styled.img`
@@ -62,6 +83,7 @@ const Name = styled.h2`
   margin-left: 0.5em;
   font-size: 1em;
   font-style: italic;
+  cursor: pointer;
 `
 
 const CloseButton = styled.button`
