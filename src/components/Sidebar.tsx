@@ -21,6 +21,9 @@ const SidebarContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  position: relative;
+  z-index: 5;
 `
 
 export default Sidebar

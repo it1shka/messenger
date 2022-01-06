@@ -44,6 +44,7 @@ const Search = () => {
 
 const SearchContainer = styled.form`
   position: relative;
+  z-index: 15;
   padding: 0.5em 0.75em 1em 0.75em;
   box-shadow: var(--lightgrey) 0px 2px 1px;
   display: flex;

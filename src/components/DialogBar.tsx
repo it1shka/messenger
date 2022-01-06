@@ -30,6 +30,8 @@ const DialogBar = () => {
 }
 
 const DialogBarContainer = styled.div`
+  position: relative;
+  z-index: 98;
 
   background-color: white;
   grid-row: 1 / 2;
