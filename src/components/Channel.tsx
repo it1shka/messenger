@@ -20,7 +20,7 @@ const Channel = ({uid}: {uid: string}) => {
   const handleRemoveChannel = () => {
     setDoc(channelsRef, {
       channels: arrayRemove(uid)
-    })
+    }, { merge: true })
   }
 
   return (

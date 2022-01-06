@@ -22,7 +22,7 @@ const SearchProfile: FC<{user: User}> = ({
     dispatch(clearSearch())
     setDoc(engaged, {
       channels: arrayUnion(user.uid)
-    })
+    }, { merge: true })
   }
 
   return (
