@@ -8,7 +8,7 @@ export const enum ActiveActionType {
 
 export interface SetActiveAction {
   type: ActiveActionType.SET_ACTIVE
-  payload: string
+  payload: string | null
 }
 
 export type ActiveAction = 

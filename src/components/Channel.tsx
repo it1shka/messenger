@@ -27,7 +27,7 @@ const Channel = ({uid}: {uid: string}) => {
   const isActive = active === uid
 
   const handleChoose = () => {
-    dispatch(setActive(uid))
+    dispatch(setActive(isActive ? null : uid))
   }
 
   const handleRemoveChannel = (
