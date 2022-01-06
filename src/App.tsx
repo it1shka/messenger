@@ -3,17 +3,25 @@ import AppBar from './components/AppBar'
 import Sidebar from './components/Sidebar'
 import DialogView from './components/DialogView'
 import SignIn from './components/SignIn'
+import DialogBar from './components/DialogBar'
 import { getAuth } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { useSelector } from 'react-redux'
+import { RootState } from './store'
 
 const App = () => {
   const auth = getAuth()
   const [user] = useAuthState(auth)
   
+  const activeUid = useSelector((state: RootState) => {
+    return state.active.active
+  })
+  
   return user 
   ? (
     <Container>
-      <AppBar />
+      <AppBar full={activeUid === null}/>
+      {activeUid && <DialogBar />}
       <Sidebar />
       <DialogView />
     </Container>

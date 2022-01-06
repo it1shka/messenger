@@ -1,9 +1,10 @@
 import styled from 'styled-components'
+import DialogBar from './DialogBar'
 
 const DialogView = () => {
   return (
     <DialogContainer>
-
+      
     </DialogContainer>
   )
 }
