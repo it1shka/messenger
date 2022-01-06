@@ -6,12 +6,12 @@ import {
   useDispatch, useSelector
 } from 'react-redux'
 import type {
-  RootState, AppDispatch
+  RootState, RootDispatch
 } from '../store'
 import * as Action from '../store/actions/search.actions'
 
 const Search = () => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<RootDispatch>()
   const input = useSelector((state: RootState) => state.search.input)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {

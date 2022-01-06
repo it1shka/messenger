@@ -6,12 +6,12 @@ import { getAuth } from "firebase/auth"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { MouseEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { AppDispatch, RootState } from "../store"
+import { RootDispatch, RootState } from "../store"
 import { setActive } from "../store/actions/active.actions"
 
 
 const Channel = ({uid}: {uid: string}) => {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<RootDispatch>()
   const active = useSelector((state: RootState) => {
     return state.active.active
   })

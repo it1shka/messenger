@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { User } from '../types'
 import { useDispatch } from 'react-redux'
 import { clearSearch } from '../store/actions/search.actions'
-import { AppDispatch } from '../store'
+import { RootDispatch } from '../store'
 import { arrayUnion, doc, getFirestore, setDoc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -12,7 +12,7 @@ const SearchProfile: FC<{user: User}> = ({
   user
 }) => {
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<RootDispatch>()
   const auth = getAuth()
   const [currentUser] = useAuthState(auth)
   const db = getFirestore()
