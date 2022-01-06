@@ -14,3 +14,12 @@ export const Button = styled.button`
     border-radius: 7px;
   }
 `
+
+export const Input = styled.input`
+  border: none;
+  outline: none;
+  padding: 0.5em;
+  border-radius: 25px;
+  box-shadow: var(--lightgrey) 0px 0px 3px;
+  flex: 1;
+`

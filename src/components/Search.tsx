@@ -28,7 +28,7 @@ const Search = () => {
       event.preventDefault()
       handleSearch()
     }}>
-      <SearchInput 
+      <Styled.Input
         value={input}
         onChange={handleInputChange}
         placeholder='Search by email...'/>
@@ -48,15 +48,6 @@ const SearchContainer = styled.form`
   padding: 0.5em 0.75em 1em 0.75em;
   box-shadow: var(--lightgrey) 0px 2px 1px;
   display: flex;
-`
-
-const SearchInput = styled.input`
-  border: none;
-  outline: none;
-  padding: 0.5em;
-  border-radius: 25px;
-  box-shadow: var(--lightgrey) 0px 0px 3px;
-  flex: 1;
 `
 
 export default Search

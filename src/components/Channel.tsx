@@ -34,6 +34,9 @@ const Channel = ({uid}: {uid: string}) => {
     event: MouseEvent<HTMLButtonElement>
   ) => {
     event.stopPropagation()
+    if(isActive) {
+      dispatch(setActive(null))
+    }
     setDoc(channelsRef, {
       channels: arrayRemove(uid)
     }, { merge: true })
