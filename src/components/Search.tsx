@@ -33,7 +33,7 @@ const Search = () => {
         onChange={handleInputChange}
         placeholder='Search by email...'/>
       <Styled.Button 
-        onClick={handleSearch} 
+        type='submit'
         style={{fontSize: '0.75em'}}>
         Search
       </Styled.Button>

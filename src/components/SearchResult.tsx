@@ -25,7 +25,7 @@ function successor(str: string) {
 const SearchResult = () => {
   const searchQuery = useSelector((state: RootState) => {
     return state.search.searchQuery
-  })
+  }).trim()
   const auth = getAuth()
   const [currentUser] = useAuthState(auth)
   const db = getFirestore()

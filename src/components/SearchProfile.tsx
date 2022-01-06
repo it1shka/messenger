@@ -7,6 +7,7 @@ import { RootDispatch } from '../store'
 import { arrayUnion, doc, getFirestore, setDoc } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { setActive } from '../store/actions/active.actions'
 
 const SearchProfile: FC<{user: User}> = ({
   user
@@ -23,6 +24,7 @@ const SearchProfile: FC<{user: User}> = ({
     setDoc(engaged, {
       channels: arrayUnion(user.uid)
     }, { merge: true })
+    dispatch(setActive(user.uid))
   }
 
   return (

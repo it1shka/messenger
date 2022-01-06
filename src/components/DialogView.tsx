@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { RootState } from '../store'
+import MessageInput from './MessageInput'
 
 const DialogView = () => {
   const activeUid = useSelector((state: RootState) => {
@@ -12,7 +13,8 @@ const DialogView = () => {
     {activeUid && (
       <>
       <InnerContainer>
-        
+        <MessageList />
+        <MessageInput />
       </InnerContainer>
       </>
     )}
@@ -42,6 +44,12 @@ const InnerContainer = styled.div`
   background-color: white;
   box-shadow: var(--lightgrey) 0px 0px 6px;
 
+  display: flex;
+  flex-direction: column;
+`
+
+const MessageList = styled.ul`
+  flex: 1;
 `
 
 export default DialogView
