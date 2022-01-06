@@ -1,10 +1,12 @@
 import searchReducer from "./search.reducer"
 import activeReducer from "./active.reducer"
+import messageReducer from "./message.reducer"
 import { combineReducers } from "redux"
 
 const appReducer = combineReducers({
   search: searchReducer,
-  active: activeReducer
+  active: activeReducer,
+  message: messageReducer
 })
 
 type AppState = ReturnType<typeof appReducer>

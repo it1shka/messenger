@@ -8,7 +8,7 @@ import { MouseEvent } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { RootDispatch, RootState } from "../store"
 import { setActive } from "../store/actions/active.actions"
-
+import { clearMessage } from "../store/actions/message.actions"
 
 const Channel = ({uid}: {uid: string}) => {
   const dispatch = useDispatch<RootDispatch>()
@@ -28,6 +28,7 @@ const Channel = ({uid}: {uid: string}) => {
 
   const handleChoose = () => {
     dispatch(setActive(isActive ? null : uid))
+    dispatch(clearMessage())
   }
 
   const handleRemoveChannel = (
