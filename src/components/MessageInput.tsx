@@ -1,25 +1,31 @@
 import { getAuth } from 'firebase/auth'
-import { collection, getFirestore, query, where } from 'firebase/firestore'
+import { arrayUnion, doc, getFirestore, setDoc, Timestamp, } from 'firebase/firestore'
 import { ChangeEvent, FormEvent } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { RootDispatch, RootState } from '../store'
 import { clearMessage, setMessage } from '../store/actions/message.actions'
 import * as Styled from './styles'
 
+function getChannelId(p1: string, p2: string) {
+  return [p1, p2].sort().join('')
+}
+
 const MessageInput = () => {
+  
   const auth = getAuth()
   const [user] = useAuthState(auth)
+
   const myUid = user!.uid
   const friendUid = useSelector((state: RootState) => {
     return state.active.active
   })!
+  const chanId = getChannelId(myUid, friendUid)
 
   const db = getFirestore()
-  const channels = collection(db, 'channels')
-  // complete here...
+  const chanRef = doc(db, 'channels', chanId)
+  const engagedOther = doc(db, 'engaged', friendUid)
 
   const dispatch = useDispatch<RootDispatch>()
   const message = useSelector((state: RootState) => {
@@ -28,7 +34,18 @@ const MessageInput = () => {
 
   const handleSendMessage = (event: FormEvent) => {
     event.preventDefault()
-    // send message code here below
+
+    setDoc(chanRef, {
+      messages: arrayUnion({
+        content: message,
+        author: myUid,
+        createdAt: Timestamp.now()
+      })
+    }, { merge: true })
+
+    setDoc(engagedOther, {
+      channels: arrayUnion(myUid)
+    }, { merge: true })
 
     dispatch(clearMessage())
   }
@@ -43,6 +60,7 @@ const MessageInput = () => {
   return (
     <InputContainer onSubmit={handleSendMessage}>
       <Styled.Input
+        required
         value={message}
         onChange={handleInputChange} 
         placeholder='Your message...'/>

@@ -1,19 +1,44 @@
+import { getAuth } from 'firebase/auth'
+import { doc, getFirestore } from 'firebase/firestore'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { RootState } from '../store'
+import { Message } from '../types'
 import MessageInput from './MessageInput'
+import MessageList from './MessageList'
+
+function getChannelId(p1: string, p2: string) {
+  return [p1, p2].sort().join('')
+}
 
 const DialogView = () => {
+
   const activeUid = useSelector((state: RootState) => {
     return state.active.active
   })
+
+  const auth = getAuth()
+  const [user] = useAuthState(auth)
+
+  const myUid = user!.uid
+  const friendUid = useSelector((state: RootState) => {
+    return state.active.active
+  })!
+  const chanId = getChannelId(myUid, friendUid)
+
+  const db = getFirestore()
+  const messagesRef = doc(db, 'channels', chanId)
+  const [messagesDoc] = useDocumentData(messagesRef)
+  const messages: Message[] = messagesDoc?.messages ?? []
 
   return (
     <DialogContainer>
     {activeUid && (
       <>
       <InnerContainer>
-        <MessageList />
+        <MessageList messages={messages}/>
         <MessageInput />
       </InnerContainer>
       </>
@@ -43,13 +68,9 @@ const InnerContainer = styled.div`
 
   background-color: white;
   box-shadow: var(--lightgrey) 0px 0px 6px;
-
+  
   display: flex;
   flex-direction: column;
-`
-
-const MessageList = styled.ul`
-  flex: 1;
 `
 
 export default DialogView
