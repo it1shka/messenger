@@ -29,7 +29,8 @@ const SignIn = () => {
         email,
         photoURL,
         uid
-      })
+        // to fix some bugs
+      }, { merge: true })
     })
   }
 
